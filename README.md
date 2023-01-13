@@ -8,27 +8,6 @@
 
 ## 研修の流れ
 
-### 研修用のリポジトリを作成
-
-このリポジトリはテンプレートリポジトリに設定されています。
-
-「Use this template」をタップして、ご自身の GitHub アカウントで研修用のリポジトリを作成してください。
-
-ただし、リポジトリ名は「flutter-training-template」以外の名前にする必要があります。
-
-<img src="docs/images/template.png" width="480" alt="template">
-
-リポジトリが作成されたら、テンプレートのクリーンワークフローが自動実行されます。
-
-テンプレートのクリーンワークフローでは次のことをしています。
-
-- 各 Session を Issue に登録
-- 各 Challenge を Issue に登録
-- fvm を利用して、最新安定板の Flutter SDK で Android・iOS 用のプロジェクトを作成
-- lints を導入
-- [templates] 配下のファイルを上書きコピー
-- 不要なファイルを削除してコミット作成してプッシュ
-
 ### 課題の進め方
 
 1. 課題用のブランチを切って実施
@@ -71,15 +50,6 @@ Session1 がレビュー待ちの場合...
 - [Session9-UnitTest]
 - [Session10-WidgetTest]
 - [Session11-ThreadBlock]
-
-### Challenge
-
-> **Warning**
-> 作成中
-
-## 貢献する方法
-
-[貢献ガイド] をご確認ください。
 
 <!-- Links -->
 
