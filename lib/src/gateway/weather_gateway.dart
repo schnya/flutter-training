@@ -9,6 +9,6 @@ class WeatherGateway implements WeatherPort {
   Future<Weather> reloadWeather() async {
     final simpleVer = yumemiWeather.fetchSimpleWeather();
     print('Weather Condition: $simpleVer');
-    return Weather(WeatherName(simpleVer));
+    return Weather(simpleVer);
   }
 }
