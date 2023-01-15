@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:training/src/gateway/weather_gateway.dart';
+import 'package:training/src/state/weather_state.dart';
+import 'package:training/src/usecase/weather_usecase.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
 void main() {
@@ -42,59 +45,85 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  final WeatherUsecase weatherUsecase = WeatherUsecase(WeatherGateway());
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  late WeatherState weatherState;
+
+  @override
+  void initState() {
+    super.initState();
+    weatherState = WeatherState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return FractionallySizedBox(
-      widthFactor: 0.5,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          AspectRatio(aspectRatio: 1 / 1, child: Placeholder()),
-          Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Text(
-                    '** ℃',
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelLarge
-                        ?.copyWith(color: Colors.blue),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Text(
-                    '** ℃',
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelLarge
-                        ?.copyWith(color: Colors.red),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 80),
-          Row(
+    return Scaffold(
+      body: Center(
+        child: FractionallySizedBox(
+          widthFactor: 0.5,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                child: TextButton(onPressed: () {}, child: Text('Close')),
+              weatherState.widget,
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: Text(
+                        '** ℃',
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelLarge
+                            ?.copyWith(color: Colors.blue),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: Text(
+                        '** ℃',
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelLarge
+                            ?.copyWith(color: Colors.red),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              Expanded(
-                child: TextButton(onPressed: () {}, child: Text('Reload')),
+              SizedBox(height: 80),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: TextButton(onPressed: () {}, child: Text('Close')),
+                  ),
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () async {
+                        weatherState =
+                            await widget.weatherUsecase.reloadWeather();
+                        setState(() {});
+                      },
+                      child: Text('Reload'),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
