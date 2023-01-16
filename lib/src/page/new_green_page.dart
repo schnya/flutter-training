@@ -11,7 +11,6 @@ class NewGreenPage extends StatefulWidget {
 
 class _NewGreenPageState extends State<NewGreenPage> {
   final duration = Duration(milliseconds: 500);
-  final route = MyHomePage.route();
   final schedulerBinding = SchedulerBinding.instance;
 
   @override
@@ -21,10 +20,11 @@ class _NewGreenPageState extends State<NewGreenPage> {
   }
 
   FutureOr<void> loop([dynamic _]) {
+    // Routeは毎度新しくないといけない。多分disposeしてるから。
     return Future.delayed(
       duration,
       () => schedulerBinding.endOfFrame
-          .then((_) => Navigator.of(context).push(route)),
+          .then((_) => Navigator.of(context).push(MyHomePage.route())),
     ).then<void>(loop);
   }
 
