@@ -7,8 +7,9 @@ class WeatherUsecase {
 
   WeatherUsecase(this._weatherPort);
 
-  Future<WeatherState> reloadWeather() async {
-    Weather weather = await _weatherPort.reloadWeather();
-    return WeatherState(weather);
+  Future<WeatherState?> reloadWeather() async {
+    Weather? weather = await _weatherPort.reloadWeather();
+    if (weather is Weather) return WeatherState(weather);
+    return null;
   }
 }

@@ -6,9 +6,14 @@ class WeatherGateway implements WeatherPort {
   final yumemiWeather = YumemiWeather();
 
   @override
-  Future<Weather> reloadWeather() async {
-    final simpleVer = yumemiWeather.fetchSimpleWeather();
-    print('Weather Condition: $simpleVer');
-    return Weather(simpleVer);
+  Future<Weather?> reloadWeather() async {
+    try {
+      final throwsVer = yumemiWeather.fetchThrowsWeather('tokyo');
+      print('Weather Condition: $throwsVer');
+      return Weather(throwsVer);
+    } on YumemiWeatherError catch (e) {
+      print('Throws: $e');
+      return null;
+    }
   }
 }

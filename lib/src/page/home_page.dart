@@ -24,6 +24,16 @@ class _MyHomePageState extends State<MyHomePage> {
     weatherState = WeatherState();
   }
 
+  void reload() async {
+    WeatherState? state = await widget.weatherUsecase.reloadWeather();
+    if (state is WeatherState) {
+      weatherState = state;
+      setState(() {});
+    } else {
+      showDialog(context: context, builder: dummyDialog);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,11 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   Expanded(
                     child: TextButton(
-                      onPressed: () async {
-                        weatherState =
-                            await widget.weatherUsecase.reloadWeather();
-                        setState(() {});
-                      },
+                      onPressed: reload,
                       child: Text('Reload'),
                     ),
                   ),
@@ -65,6 +71,20 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget dummyDialog(BuildContext context) {
+    return AlertDialog(
+      content: Text('仮のテキスト'),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text('OK'),
+        )
+      ],
     );
   }
 }
