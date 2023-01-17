@@ -46,8 +46,8 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               weatherState.widget,
               Row(children: [
-                CelsiusText(Colors.blue, weatherState.weather?.minTemperature),
-                CelsiusText(Colors.red, weatherState.weather?.maxTemperature)
+                CelsiusText(Colors.blue, weatherState.weather?.min_temperature),
+                CelsiusText(Colors.red, weatherState.weather?.max_temperature)
               ]),
               SizedBox(height: 80),
               Row(

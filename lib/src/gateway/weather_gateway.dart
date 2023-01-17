@@ -17,7 +17,7 @@ class WeatherGateway implements WeatherPort {
 }''';
       final encodedWeather = yumemiWeather.fetchWeather(jsonString);
       print('Weather: $encodedWeather');
-      final weather = jsonDecode(encodedWeather) as Map;
+      final weather = jsonDecode(encodedWeather) as Map<String, dynamic>;
       return Weather.fromJson(weather);
     } on YumemiWeatherError catch (e) {
       print('Throws: $e');

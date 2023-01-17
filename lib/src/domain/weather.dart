@@ -1,29 +1,20 @@
 import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:training/src/fcc.dart';
 
-class Weather extends Equatable {
-  final String condition;
-  final int? maxTemperature;
-  final int? minTemperature;
-  final DateTime? date;
+part 'weather.freezed.dart';
+part 'weather.g.dart';
 
-  Weather(
-    this.condition, {
-    this.maxTemperature,
-    this.minTemperature,
-    this.date,
-  });
-  factory Weather.fromJson(Map weather) {
-    return Weather(
-      weather["weather_condition"],
-      maxTemperature: weather["max_temperature"],
-      minTemperature: weather["min_temperature"],
-      date: DateTime.tryParse(weather["date"]),
-    );
-  }
-
-  @override
-  List<Object> get props => [condition];
+@freezed
+class Weather with _$Weather {
+  const factory Weather({
+    required String weather_condition,
+    int? max_temperature,
+    int? min_temperature,
+    DateTime? date,
+  }) = _Weather;
+  factory Weather.fromJson(Map<String, Object?> json) =>
+      _$WeatherFromJson(json);
 }
 
 class Weathers extends FCC<Weather> with EquatableMixin {
