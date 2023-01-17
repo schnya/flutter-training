@@ -8,7 +8,7 @@ class WeatherState {
 
   WeatherState([this.weather]) {
     Widget child;
-    switch (weather?.name) {
+    switch (weather?.condition) {
       case ('cloudy'):
         child = SvgPicture.asset('docs/sessions/images/api/cloudy.svg');
         break;
